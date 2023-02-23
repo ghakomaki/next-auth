@@ -7,6 +7,13 @@ title: MongoDB
 
 The MongoDB adapter does not handle connections automatically, so you will have to make sure that you pass the Adapter a `MongoClient` that is connected already. Below you can see an example how to do this.
 
+MongoDB can be configured to automatically delete expired documents, based either on a set time or a field, ex. the sessions `expires` Date.
+This is done through creating a TTL index.
+`db.sessions.createIndex( { "expires": 1 }, { expireAfterSeconds: 0 } )`
+:::note This creates a background job that removes expired documents every 60 seconds. This may result it expired fields persisting for a period of time, while the clean up task removes expired documents :::
+
+https://www.mongodb.com/docs/manual/core/index-ttl/
+
 ## Usage
 
 1. Install the necessary packages
